@@ -9,10 +9,12 @@
     var obstacleSprites;
     
     var isGameOver;
+    var score;
 
 function setup() {
 
 isGameOver = false;
+score = 0;
     
 createCanvas(400, 300);
 background(150, 200, 250);
@@ -30,8 +32,12 @@ groundSprites = new Group();
 }
 
 function draw() {
-        if (isGameOver) {
-
+    if (isGameOver) {
+      background(0);
+      fill(255);
+      textAlign(CENTER);
+      text("Your score was this my dudes: " + score, camera.position.x, camera.position.y - 20);
+      text("GAME OVER!!! My dudes!! Click anywhere to restart", camera.position.x,camera.position.y);
     } else {
         
     background(150, 200, 250);
@@ -56,9 +62,10 @@ function draw() {
     }
     
     if (random() > 0.95) {
+      
+      var obstacle = createSprite(camera.position.x + width, random(0, (height-50)-15), 30, 30);
         
-      var obstacle = createSprite(camera.position.x + width, (height-50) - 15, 30, 30);
-        obstacleSprites.add(obstacle);
+      obstacleSprites.add(obstacle);
     }
     var firstObstacle = obstacleSprites[0];
 if (obstacleSprites.length > 0 && firstObstacle.position.x <= camera.position.x - (width/2 + firstObstacle.width/2)) {
@@ -67,6 +74,10 @@ if (obstacleSprites.length > 0 && firstObstacle.position.x <= camera.position.x 
 obstacleSprites.overlap(player, endGame);
 
     drawSprites();
+    // Let's track our score
+    score = score + 1;
+    textAlign(CENTER);
+    text(score, camera.position.x, 10);
 }
  }
 function endGame() {
@@ -85,8 +96,9 @@ function mouseClicked() {
     player.position.y = height-75;
 
     obstacleSprites.removeSprites();
-
+    score = 0;
     isGameOver = false;
+    
   }
   
 }
