@@ -16,7 +16,7 @@ function setup() {
 isGameOver = false;
 score = 0;
     
-createCanvas(400, 300);
+createCanvas(windowWidth, windowHeight);
 background(150, 200, 250);
 groundSprites = new Group();
 
